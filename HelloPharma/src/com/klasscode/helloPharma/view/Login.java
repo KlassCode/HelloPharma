@@ -18,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.klasscode.helloPharma.app.Observateur.Observer;
 import com.klasscode.helloPharma.app.util.Security;
+import com.klasscode.helloPharma.controller.ControlerCompte;
+import com.klasscode.helloPharma.model.dao.implement.CompteDao;
 
 public class Login extends JFrame implements Observer{
 
@@ -26,26 +28,13 @@ public class Login extends JFrame implements Observer{
 	private JTextField txtPseudo;
 	private JPasswordField txtPassword;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public Login(ControlerCompte controler) {
+		
+		this.controler = controler;
 		setUndecorated(true);
 		setTitle("Hello-Pharma Connexion");
 		setSize(350,500);
@@ -111,7 +100,6 @@ public class Login extends JFrame implements Observer{
 				String password= new String(txtPassword.getPassword());
 				String pass= Security.encrypt(password);
 				controler.seConnecter(txtPseudo.getText().trim(),pass);
-			
 			}
 		});
 		btnLogin.setBackground(new Color(7, 98, 140));
@@ -143,5 +131,9 @@ public class Login extends JFrame implements Observer{
 	public void update(String str) {
 		// TODO Auto-generated method stub
 		System.out.println(str);
+		this.dispose();
+		MainFrame main = new MainFrame();
+		main.getUser(str);
+		main.setVisible(true);
 	}
 }

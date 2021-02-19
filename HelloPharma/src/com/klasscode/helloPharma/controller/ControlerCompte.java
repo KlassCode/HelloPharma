@@ -1,35 +1,32 @@
-package com.klasscode.helloPharma.view;
+package com.klasscode.helloPharma.controller;
 
 import javax.swing.JOptionPane;
 
+import com.klasscode.helloPharma.app.util.MessageUser;
 import com.klasscode.helloPharma.model.bean.Compte;
 import com.klasscode.helloPharma.model.dao.implement.CompteDao;
-import com.sbix.jnotify.NPosition;
-import com.sbix.jnotify.NoticeType;
-import com.sbix.jnotify.NoticeWindow;
 
 public class ControlerCompte {
 
 	private CompteDao model;
 
-	private ControlerCompte(CompteDao model) {
+	public ControlerCompte(CompteDao model) {
 		this.model = model;
 	}
 
 	public void seConnecter(String userName, String password) {
+		
 		Compte compte = null;
 		int code = this.model.find(userName, password);
 		System.out.println(code);
 		if (code > 0) {
 			compte = model.search(code);
 			if (compte != null) {
-				// MessageUser.displayMessage("Vous etes Connecte");
-				new NoticeWindow(NoticeType.SUCCESS_NOTIFICATION, "Vous etes Connecte", NoticeWindow.LONG_DELAY,
-						NPosition.TOP_RIGHT);
+				MessageUser.displayMessage("Vous etes Connecte");
+//				
 			}
 		} else {
-			new NoticeWindow(NoticeType.WARNING_NOTIFICATION, "Verifier Identifiant/Password", NoticeWindow.LONG_DELAY,
-					NPosition.CENTER);
+			MessageUser.displayMessage("Verifier votre identifiant ou mot de passe ");
 		}
 	}
 	

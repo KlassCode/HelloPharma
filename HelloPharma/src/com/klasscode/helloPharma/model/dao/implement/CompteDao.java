@@ -24,6 +24,7 @@ public class CompteDao extends DAO<Compte> implements Observable {
 		String requete = "INSERT INTO compte(username,password,privileges,date_creation) values(?,?,?,?);";
 		try (PreparedStatement prepare = this.connection.prepareStatement(requete)) {
 			String password = Security.encrypt(compte.getPassword());
+			System.out.println(password);
 //					DateFormat df= new SimpleDateFormat("yyyy-MM-dd");
 //					String dateRendezVous= df.format(date);
 			prepare.setString(1, compte.getUsername());
@@ -68,8 +69,9 @@ public class CompteDao extends DAO<Compte> implements Observable {
 //			if(compte.getUsername()!=null) {
 //				notifyObserver("Connexion Reussie");
 //			}
-			notifyObserver(compte.getUsername() + "-" + compte.getPrivileges() + "-" + compte.getActivate() + "-"
-					+ compte.getPassword() + "-" + compte.getId());
+			notifyObserver(compte.getUsername());
+//			notifyObserver(compte.getUsername() + "-" + compte.getPrivileges() + "-" + compte.getActivate() + "-"
+//					+ compte.getPassword() + "-" + compte.getId());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "Erreur Database " + e.getMessage());

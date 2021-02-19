@@ -29,28 +29,16 @@ public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel mainPanel;
+	private JLabel lblUser;
+	private JLabel lblUseronline;
+	
 	private MedicamentDao model = new MedicamentDao();
 	private VenteDao modelVente = new VenteDao();
 
 	private ControlerMedicament ctrl = new ControlerMedicament(model);
 	private ControlerVenteMedoc ctrlVente = new ControlerVenteMedoc(modelVente);
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private String username="";
 	/**
 	 * Create the frame.
 	 */
@@ -101,7 +89,7 @@ public class MainFrame extends JFrame {
 		lblWelcomeUser.setForeground(new Color(128, 128, 128));
 		lblWelcomeUser.setFont(new Font("AnjaliOldLipi", Font.BOLD, 15));
 
-		JLabel lblUser = new JLabel("User");
+		lblUser = new JLabel(username);
 		lblUser.setFont(new Font("AnjaliOldLipi", Font.BOLD, 15));
 		lblUser.setForeground(new Color(0, 0, 0));
 
@@ -373,7 +361,7 @@ public class MainFrame extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(
 				MainFrame.class.getResource("/com/klasscode/helloPharma/ressources/chemistry_icon(4).png")));
 
-		JLabel lblUseronline = new JLabel("User-Online");
+		lblUseronline = new JLabel(username);
 		lblUseronline.setFont(new Font("AnjaliOldLipi", Font.BOLD, 15));
 
 		JLabel lblNewLabel_1 = new JLabel("");
@@ -427,5 +415,12 @@ public class MainFrame extends JFrame {
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 
+	}
+
+	public void getUser(String str) {
+		// TODO Auto-generated method stub
+		lblUseronline.setText(str);
+		lblUser.setText(str);
+		
 	}
 }
